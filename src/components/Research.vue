@@ -2,7 +2,12 @@
   <section id="research">
 
     <div class="content">
+
+      <!-- Creating a form to display the research bar
+      NOTE : The Search button is not currently not useful because the research is dynamic -->
+
       <form>
+        <!-- Connecting the input to the input prop setup in data with v-model -->
         <input type="text" v-model="input" placeholder="Type the product you're looking for" />
         <button type="submit">
           Search
@@ -10,8 +15,9 @@
       </form>
 
       <div class="results">
+        <!-- Looking for the right products in our filtered list and displaying their brand and name -->
         <ul v-for="product in this.filteredProducts()" :key="product.id">
-          <li>{{product.brand}} - {{ product.name }}</li>
+          <li><span class="product-brand">{{product.brand}}</span> - {{ product.name }}</li>
         </ul>
       </div>
     </div>  
@@ -38,6 +44,7 @@ export default {
         this.products = response.data
       })
     },
+    // It will return every product whose name includes what is written in the research input
     filteredProducts() {
       return this.products.filter((product) =>
         product.name.includes(this.input.toLowerCase()) 
@@ -45,6 +52,9 @@ export default {
     },
   },
   created() {
+    // I couldn't have my code working if I didn't call this function in the created() part
+    // but the thing is products are all setup when no research is made
+    // All my products are loaded before the filteredProducts function is called
     this.fetchProducts()
   }
 }
@@ -57,13 +67,13 @@ export default {
   overflow: scroll;
 }
 
-  .content {
-    display: grid;
-    grid-auto-rows: auto;
-    width: 80vw;
-    align-items: center;
-    margin: auto;
-  }
+.content {
+  display: grid;
+  grid-auto-rows: auto;
+  width: 80vw;
+  align-items: center;
+  margin: auto;
+}
 
 form {
   height: 2rem;
@@ -75,17 +85,28 @@ input {
   width: 70%;
   border-radius: 5px;
   border: none;
+  padding: 1rem;
+  outline: none;
 }
 
 button {
   background-color: #55D7FF;
   border: none;
   border-radius: 5px;
-  width: 20%
+  width: 20%;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .results {
   color: white;
+}
+
+.product-brand {
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 @media screen and (min-width: 900px) {
@@ -95,6 +116,10 @@ button {
 
   form {
     height: 3rem;
+  }
+
+  button {
+     font-size: 1.2rem;
   }
 
 }

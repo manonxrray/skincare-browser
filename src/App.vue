@@ -20,6 +20,7 @@ export default {
 </script>
 
 <style>
+/* I decided to use "grid" to display my containers because I think it's more relayable  */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: #2c3e50;

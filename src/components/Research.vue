@@ -3,15 +3,15 @@
 
     <div class="content">
       <form>
-        <input type="text" placeholder="Type the product you're looking for" />
+        <input type="text" v-model="input" placeholder="Type the product you're looking for" />
         <button type="submit">
           Search
         </button>
       </form>
 
       <div class="results">
-        <ul v-for="product in products" :key="product.id">
-          <li>{{ product.name }}</li>
+        <ul v-for="product in this.filteredProducts()" :key="product.id">
+          <li>{{product.brand}} - {{ product.name }}</li>
         </ul>
       </div>
     </div>  
@@ -26,15 +26,26 @@ export default {
   name: 'Research',
   data() {
     return {
-      products: null
+      products: null,
+      input: ""
     }
   },
-  mounted() {
-    axios
-    .get('https://thawing-scrubland-03171.herokuapp.com/https://skincare-api.herokuapp.com/products')
-    .then((response) => {
-      this.products = response.data
-    })
+  methods: {
+    fetchProducts() {
+      axios
+      .get('https://thawing-scrubland-03171.herokuapp.com/https://skincare-api.herokuapp.com/products')
+      .then((response) => {
+        this.products = response.data
+      })
+    },
+    filteredProducts() {
+      return this.products.filter((product) =>
+        product.name.includes(this.input.toLowerCase()) 
+      );
+    },
+  },
+  created() {
+    this.fetchProducts()
   }
 }
 </script>
@@ -43,6 +54,7 @@ export default {
 #research {
   background-color: #DB0992;
   padding: 1rem;
+  overflow: scroll;
 }
 
   .content {

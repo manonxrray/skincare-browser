@@ -3,16 +3,15 @@
 
     <div class="content">
       <form>
-        <input placeholder="Type the product you're looking for" />
+        <input type="text" placeholder="Type the product you're looking for" />
         <button type="submit">
           Search
         </button>
       </form>
 
       <div class="results">
-        <ul>
-          <li>product 1</li>
-          <li>product 2</li>
+        <ul v-for="product in products" :key="product.id">
+          <li>{{ product.name }}</li>
         </ul>
       </div>
     </div>  
@@ -21,8 +20,22 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'Research'
+  name: 'Research',
+  data() {
+    return {
+      products: null
+    }
+  },
+  mounted() {
+    axios
+    .get('https://thawing-scrubland-03171.herokuapp.com/https://skincare-api.herokuapp.com/products')
+    .then((response) => {
+      this.products = response.data
+    })
+  }
 }
 </script>
 

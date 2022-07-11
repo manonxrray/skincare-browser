@@ -3,13 +3,16 @@
 
     <div class="content">
 
-      <!-- Creating a form to display the research bar
-      NOTE : The Search button is not currently not useful because the research is dynamic -->
+      <!--
+        Creating a form to display the research bar
+        NOTE : The Search button is not currently useful because the research is dynamic
+        I'm going to look for a solution in my free time
+      -->
 
       <form>
-        <!-- Connecting the input to the input prop setup in data with v-model -->
+        <!-- Connecting the input to the input prop setup in data (l.39) with v-model -->
         <input type="text" v-model="input" placeholder="Type the product you're looking for" />
-        <button type="submit">
+        <button>
           Search
         </button>
       </form>
@@ -52,9 +55,11 @@ export default {
     },
   },
   created() {
-    // I couldn't have my code working if I didn't call this function in the created() part
-    // but the thing is products are all setup when no research is made
-    // All my products are loaded before the filteredProducts function is called
+    /* 
+      I couldn't have my code working if I didn't call this function in the created() part
+      but the thing is products are all setup when no research is made
+      All my products are loaded before the filteredProducts function is called
+    */
     this.fetchProducts()
   }
 }
